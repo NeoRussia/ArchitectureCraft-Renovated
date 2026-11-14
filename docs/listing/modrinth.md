@@ -83,17 +83,17 @@ packaging are what the evenings go into now.
 If it has saved you a wall, a roof or an entire cathedral, you can keep the
 coffee flowing here: [ko-fi.com/neeyo](https://ko-fi.com/neeyo)
 
-## Version 0.4
+## Version 0.5
 
 | Field | Value |
 |---|---|
-| File | architecturecraft-renovated.3.108-0.4.jar |
-| Additional file | architecturecraft-renovated.3.108-0.4-sources.jar |
-| Version number | 0.4 |
+| File | architecturecraft-renovated.3.108-0.5.jar |
+| Additional file | architecturecraft-renovated.3.108-0.5-sources.jar |
+| Version number | 0.5 |
 | Channel | release |
 | Game versions | 1.12.2 |
 | Loader | Forge |
-| Changelog | the `3.108-0.4` section of CHANGELOG.md |
+| Changelog | the `3.108-0.5` section of CHANGELOG.md |
 
 ## Note on the AI disclosure
 
