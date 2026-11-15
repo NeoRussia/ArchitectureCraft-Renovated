@@ -25,6 +25,7 @@
 package com.elytradev.architecture.client.proxy;
 
 import com.elytradev.architecture.client.render.CustomBlockDispatcher;
+import com.elytradev.architecture.client.ClientConfigEvents;
 import com.elytradev.architecture.client.render.PreviewRenderer;
 import com.elytradev.architecture.client.render.RenderingManager;
 import com.elytradev.architecture.client.render.shape.RenderCladding;
@@ -77,6 +78,7 @@ public class ClientProxy extends CommonProxy {
         if (state == LoaderState.ModState.POSTINITIALIZED) {
             CustomBlockDispatcher.inject();
             MinecraftForge.EVENT_BUS.register(PreviewRenderer.class);
+            MinecraftForge.EVENT_BUS.register(new ClientConfigEvents());
         }
     }
 
@@ -176,3 +178,4 @@ public class ClientProxy extends CommonProxy {
         RENDERING_MANAGER.addItemRenderer(ArchitectureMod.CONTENT.itemHashBrown, new RenderHashBrown());
     }
 }
+

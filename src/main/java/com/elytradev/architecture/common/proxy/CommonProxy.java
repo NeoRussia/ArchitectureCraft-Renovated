@@ -26,6 +26,7 @@ package com.elytradev.architecture.common.proxy;
 
 import com.elytradev.architecture.client.render.model.IArchitectureModel;
 import com.elytradev.architecture.client.render.model.OBJSONModel;
+import com.elytradev.architecture.common.ArchitectureConfig;
 import com.elytradev.architecture.common.ArchitectureGuiHandler;
 import com.elytradev.architecture.common.ArchitectureLog;
 import com.elytradev.architecture.common.ArchitectureMod;
@@ -48,6 +49,7 @@ public class CommonProxy {
     private Map<ResourceLocation, IArchitectureModel> modelCache = Maps.newHashMap();
 
     public void preInit(FMLPreInitializationEvent e) {
+        ArchitectureConfig.load(e.getSuggestedConfigurationFile());
         ArchitectureNetworking.setupNetwork();
         if (Loader.isModLoaded("theoneprobe"))
             TopCompatibility.register();
@@ -87,3 +89,5 @@ public class CommonProxy {
         return new ResourceLocation(ArchitectureMod.MOD_ID, "models/" + path);
     }
 }
+
+

@@ -25,6 +25,7 @@
 package com.elytradev.architecture.client.render.shape;
 
 import com.elytradev.architecture.client.render.ICustomRenderer;
+import com.elytradev.architecture.client.render.MaterialOverlay;
 import com.elytradev.architecture.client.render.target.RenderTargetBase;
 import com.elytradev.architecture.client.render.target.RenderTargetWorld;
 import com.elytradev.architecture.client.render.texture.ITexture;
@@ -33,6 +34,7 @@ import com.elytradev.architecture.common.ArchitectureLog;
 import com.elytradev.architecture.common.helpers.Trans3;
 import com.elytradev.architecture.common.helpers.Utils;
 import com.elytradev.architecture.common.tile.TileShape;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -66,7 +68,31 @@ public class ShapeRenderDispatch implements ICustomRenderer {
             int baseColour = renderBase ? Utils.getColourFromState(shape.getBaseBlockState()) : -1;
             int secondaryColour = renderSecondary ? Utils.getColourFromState(shape.getSecondaryBlockState()) : baseColour;
 
-            this.renderShapeTE(shape, target, transform, renderBase, renderSecondary, baseColour, secondaryColour);
+            IBlockState material = shape.getBaseBlockState();
+            MaterialOverlay.Layer extra = (target instanceof RenderTargetWorld && material != null)
+                    ? MaterialOverlay.layerFor(world, pos, material) : null;
+            // A plain "_active" layer is the texture of the running state, not an
+            // emission: draw it as the base so it keeps normal lighting. Only an
+            // emissive layer is drawn on top, full-bright, in the bloom layer.
+            TextureAtlasSprite baseOverride = (extra != null && !extra.emissive) ? extra.sprite : null;
+
+            this.renderShapeTE(shape, target, transform, renderBase, renderSecondary, baseColour, secondaryColour,
+                    baseOverride);
+
+            if (extra != null && extra.emissive && target instanceof RenderTargetWorld && material != null) {
+                Block materialBlock = material.getBlock();
+                boolean bloomLayer = layer != materialBlock.getRenderLayer()
+                        && materialBlock.canRenderInLayer(material, layer);
+                if (bloomLayer) {
+                    RenderTargetWorld worldTarget = (RenderTargetWorld) target;
+                    worldTarget.beginOverlay();
+                    try {
+                        this.renderShapeTE(shape, target, transform, true, false, baseColour, -1, extra.sprite);
+                    } finally {
+                        worldTarget.endOverlay();
+                    }
+                }
+            }
         }
     }
 
@@ -118,10 +144,24 @@ public class ShapeRenderDispatch implements ICustomRenderer {
     public void renderShapeTE(TileShape te, RenderTargetBase target, Trans3 t,
                               boolean renderBase, boolean renderSecondary,
                               int baseColour, int secondaryColour) {
+        this.renderShapeTE(te, target, t, renderBase, renderSecondary, baseColour, secondaryColour, null);
+    }
+
+    /**
+     * @param baseOverride texture to draw instead of the material's base sprite,
+     *                     used for a material's second (emissive) layer
+     */
+    public void renderShapeTE(TileShape te, RenderTargetBase target, Trans3 t,
+                              boolean renderBase, boolean renderSecondary,
+                              int baseColour, int secondaryColour,
+                              TextureAtlasSprite baseOverride) {
+        if (baseOverride != null)
+            renderSecondary = false;
         if (te.getShape() != null && (renderBase || renderSecondary)) {
             IBlockState base = te.getBaseBlockState();
             if (base != null) {
-                TextureAtlasSprite baseSprite = Utils.getSpriteForBlockState(base);
+                TextureAtlasSprite baseSprite = baseOverride != null
+                        ? baseOverride : Utils.getSpriteForBlockState(base);
                 TextureAtlasSprite secondarySprite = Utils.getSpriteForBlockState(te.getSecondaryBlockState());
                 if (baseSprite != null) {
                     ITexture[] textures = new ITexture[4];
@@ -199,3 +239,5 @@ public class ShapeRenderDispatch implements ICustomRenderer {
     }
 
 }
+
+

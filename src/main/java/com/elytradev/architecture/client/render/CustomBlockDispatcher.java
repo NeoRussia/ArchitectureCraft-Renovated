@@ -4,6 +4,8 @@ import com.elytradev.architecture.client.proxy.ClientProxy;
 import com.elytradev.architecture.client.render.target.RenderTargetBaked;
 import com.elytradev.architecture.client.render.target.RenderTargetWorld;
 import com.elytradev.architecture.common.ArchitectureLog;
+import com.elytradev.architecture.common.tile.TileShape;
+import com.elytradev.architecture.compat.demonica.ShaderMaterialIds;
 import com.elytradev.architecture.common.helpers.Trans3;
 import com.elytradev.concrete.reflect.accessor.Accessor;
 import com.elytradev.concrete.reflect.accessor.Accessors;
@@ -101,6 +103,14 @@ public class CustomBlockDispatcher extends BlockRendererDispatcher {
     private boolean customRenderBlockToWorld(IBlockAccess world, BlockPos pos, IBlockState state, BufferBuilder tess,
                                              TextureAtlasSprite icon, ICustomRenderer rend) {
         try {
+            // A shader pack cannot see a shape's material from the block state,
+            // so hand it the material's own id when the material is one the pack
+            // knows. Does nothing without Demonica, and nothing for materials it
+            // does not recognise.
+            TileShape tile = TileShape.get(world, pos);
+            if (tile != null)
+                ShaderMaterialIds.stamp(tess, pos, tile.getBaseBlockState());
+
             RenderTargetWorld target = new RenderTargetWorld(world, pos, tess, icon);
             BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
             rend.renderBlock(world, pos, state, target, layer, Trans3.blockCenter(pos));
@@ -119,3 +129,5 @@ public class CustomBlockDispatcher extends BlockRendererDispatcher {
     }
 
 }
+
+

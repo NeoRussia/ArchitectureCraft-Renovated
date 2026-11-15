@@ -77,6 +77,21 @@ public class RenderTargetWorld extends RenderTargetBase {
     /** Faces are held back until the whole shape is known, so hidden ones can be dropped. */
     private final List<Face> faces = new ArrayList<Face>();
     private Face currentFace;
+    /** True while a material's second, emissive layer is being drawn. */
+    private boolean overlayPass;
+    /** Index of the first overlay face, or -1 when none were drawn. */
+    private int overlayStart = -1;
+
+    /** Starts the material's overlay layer: full brightness, no culling. */
+    public void beginOverlay() {
+        this.overlayPass = true;
+        if (this.overlayStart < 0)
+            this.overlayStart = this.faces.size();
+    }
+
+    public void endOverlay() {
+        this.overlayPass = false;
+    }
 
     public interface NeighbourGeometry {
         /** Corner keys of the neighbour's faces on the given boundary, or null. */
@@ -187,6 +202,12 @@ public class RenderTargetWorld extends RenderTargetBase {
     //-----------------------------------------------------------------------------------------
 
     protected void lightVertex(Vector3 p) {
+        if (this.overlayPass) {
+            // The second layer is the material's own emission: full brightness,
+            // no ambient occlusion, no world light sampling.
+            this.setLight(1.0f, 0xF000F0);
+            return;
+        }
         // TODO: Colour multiplier
         if (this.ao)
             this.aoLightVertex(p);
@@ -397,9 +418,11 @@ public class RenderTargetWorld extends RenderTargetBase {
             this.currentFace = null;
         }
         boolean[] hidden = null;
-        if (this.faces.size() > 1) {
+        if (this.faces.size() > 1 && this.overlayStart < 0) {
             // Never let the culling check cost us the geometry: if anything
-            // goes wrong, draw every face as before.
+            // goes wrong, draw every face as before. Shapes carrying an overlay
+            // skip it, because the overlay faces lie on the same planes as the
+            // base ones and would be culled against each other.
             try {
                 hidden = this.findHiddenFaces();
             } catch (RuntimeException e) {

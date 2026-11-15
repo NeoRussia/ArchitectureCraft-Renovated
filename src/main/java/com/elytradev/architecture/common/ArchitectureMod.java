@@ -38,11 +38,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import static com.elytradev.architecture.common.ArchitectureMod.*;
 
 @Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VER,
+        guiFactory = "com.elytradev.architecture.client.ArchitectureGuiFactory",
         acceptedMinecraftVersions = "[1.12,1.13)")
 public class ArchitectureMod {
     public static final String MOD_NAME = "ArchitectureCraft: Renovated";
     public static final String MOD_ID = "architecturecraft";
-    public static final String MOD_VER = "3.108-0.4";
+    public static final String MOD_VER = "3.108-0.5";
     public static final String RESOURCE_DOMAIN = "architecturecraft:";
 
     public static final ArchitectureContent CONTENT = new ArchitectureContent();
