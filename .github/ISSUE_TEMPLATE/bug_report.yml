@@ -1,0 +1,132 @@
+name: Bug report
+description: Something is broken, missing, or renders wrong
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Two rules make this solvable: **name the exact version** (never "latest"), and
+        **include the log** — most reports are answered by a line in it.
+
+  - type: textarea
+    id: what-happens
+    attributes:
+      label: What happens
+      description: What you see, in plain words. If something renders wrong, say what you expected next to it.
+      placeholder: A wall of glass shapes shows the missing model, while a glass block next to it renders.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      description: Numbered steps, starting from a fresh world if you can.
+      placeholder: |
+        1. Place a shape from ...
+        2. Use the chisel on ...
+        3. Look at ...
+    validations:
+      required: true
+
+  - type: input
+    id: jar
+    attributes:
+      label: Jar and SHA-256
+      description: >-
+        The file name and SHA-256 of the ArchitectureCraft jar in your mods folder.
+        Windows: Get-FileHash <file> -Algorithm SHA256 in PowerShell.
+        Linux/macOS: sha256sum <file>.
+      placeholder: architecturecraft-renovated.3.108-0.5.jar, F672D4FA...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: loader
+    attributes:
+      label: Loader
+      options:
+        - Cleanroom
+        - Forge 1.12.2
+        - Something else (explain in the log section)
+    validations:
+      required: true
+
+  - type: input
+    id: loader-version
+    attributes:
+      label: Loader version
+      description: The Cleanroom or Forge version, as printed at the top of the log.
+      placeholder: "Cleanroom 0.7.14-alpha, Forge 14.23.5.2860"
+    validations:
+      required: true
+
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      description: The version the game actually runs on, and where it comes from (Zulu 8, Temurin 17, ...).
+      placeholder: Zulu 25.0.1
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: Including whether the disk is case sensitive, which matters for missing textures on Linux or macOS.
+      placeholder: Windows 11, or Ubuntu 24.04
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: >-
+        A link to the full latest.log (Gist, Pastebin), or drag the file into this box.
+        If the game crashed, attach the crash report from crash-reports instead — it supersedes the log.
+        If you cannot share the whole log, paste the lines around the error, including the stack trace.
+      placeholder: https://gist.github.com/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: modlist
+    attributes:
+      label: What else is installed
+      description: >-
+        In latest.log, copy the line that starts "Client attempting to join with N mods" — it lists every
+        mod and version. If the issue is about rendering, also name your shader pack (and whether shaders
+        were on) and your resource packs.
+      placeholder: "[Client thread/INFO] [FML]: Client attempting to join with 195 mods : ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Mod options, if the issue is visual
+      description: >-
+        Open the mod's config from Mod Options and say what "Overlay layer" and "Shader material ids" are
+        set to. "Did you enable that?" is the first question a rendering report raises.
+
+  - type: dropdown
+    id: isolated
+    attributes:
+      label: Does it also happen with only this mod installed?
+      description: A fresh profile with just this jar, or the closest you can get to it.
+      options:
+        - "Yes"
+        - "No"
+        - "Not tried"
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: >-
+        Drag images into this box. For a rendering issue, one screenshot of the problem and one of a
+        working example next to it are worth more than a description.
