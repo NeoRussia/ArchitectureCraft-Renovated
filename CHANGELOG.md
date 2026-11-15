@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.108-0.6
+
+- A glowing translucent shape emits its light again. The shape's own light was
+  hard-coded to zero in the per-block context a shader pack reads as block
+  emission, and a glowing shape whose material is translucent must report the
+  material's glass id, so it reached the pack as glass that emits nothing. The
+  light now travels with that context; Eclipse reads it for glass ids, so a lamp
+  cut from glass lights the room again.
+- Distant Horizons no longer renders shapes as the pink missing texture. Its LOD
+  renderer bakes one texture per block state, and a shape's state has no sprite
+  of its own, so the model now answers with a plain stone sprite. Distant shapes
+  read as solid stone; the material cannot be shown at that distance because it
+  lives in the tile entity.
+
 ## 3.108-0.5
 
 - The One Probe support: probing a shape shows its name and material with the

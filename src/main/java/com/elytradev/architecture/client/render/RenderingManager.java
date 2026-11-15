@@ -59,6 +59,7 @@ import net.minecraftforge.client.model.ModelLoader;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,14 @@ public class RenderingManager {
 
     protected static Trans3 itemTrans = Trans3.blockCenterSideTurn(0, 2);
     protected static String[] texturePrefixes = {"blocks/", "items/"};
+
+    /**
+     * Sprite handed to anything that asks a block state for one texture of its
+     * own. A shape has none: its material lives in the tile entity. Consumers
+     * that bake per state, Distant Horizons included, render a null or missing
+     * sprite as the pink missing texture, so they get plain stone instead.
+     */
+    protected static final String FALLBACK_ICON = "minecraft:blocks/stone";
     protected Map<Block, ICustomRenderer> blockRenderers = new HashMap<Block, ICustomRenderer>();
     protected Map<Item, ICustomRenderer> itemRenderers = new HashMap<Item, ICustomRenderer>();
     protected Map<IBlockState, ICustomRenderer> stateRendererCache = new HashMap<IBlockState, ICustomRenderer>();
@@ -258,7 +267,9 @@ public class RenderingManager {
 
         @Override
         public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-            return null;
+            // Empty, not null: the geometry is drawn by our renderer, but a
+            // third-party model consumer must not trip over the absence.
+            return Collections.emptyList();
         }
 
         @Override
@@ -307,10 +318,13 @@ public class RenderingManager {
             Block block = this.state.getBlock();
             if (block instanceof BlockArchitecture) {
                 String[] textures = ((BlockArchitecture) block).getTextureNames();
-                if (textures != null && textures.length > 0)
-                    return RenderingManager.this.getIcon(0, textures[0]);
+                if (textures != null && textures.length > 0) {
+                    ITexture texture = RenderingManager.this.getTexture(0, textures[0]);
+                    if (texture instanceof TextureBase.Sprite)
+                        return ((TextureBase.Sprite) texture).icon;
+                }
             }
-            return null;
+            return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FALLBACK_ICON);
 
         }
     }
