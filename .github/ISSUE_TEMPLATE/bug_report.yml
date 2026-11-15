@@ -1,132 +1,55 @@
-name: Bug report
-description: Something is broken, missing, or renders wrong
-title: "[Bug] "
+name: Bug Report
+description: Create a report to help reproduce and fix the issue
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting. Two rules make this solvable: **name the exact version** (never "latest"), and
-        **include the log** — most reports are answered by a line in it.
-
+        # Thank you for reporting!
+        Two things make a report fixable: the **exact version**, and the **log**. Please fill in every field.
   - type: textarea
-    id: what-happens
+    id: bugdesc
     attributes:
-      label: What happens
-      description: What you see, in plain words. If something renders wrong, say what you expected next to it.
-      placeholder: A wall of glass shapes shows the missing model, while a glass block next to it renders.
-    validations:
-      required: true
-
-  - type: textarea
-    id: steps
-    attributes:
-      label: How to reproduce
-      description: Numbered steps, starting from a fresh world if you can.
+      label: Description of the Bug
+      description: >-
+        Short description of what happens and what you expected instead. For a rendering issue, attach a
+        screenshot of the problem and, if you can, of a working example beside it.
       placeholder: |
-        1. Place a shape from ...
-        2. Use the chisel on ...
-        3. Look at ...
+        {thing} renders as the missing model, but the block it was cut from renders correctly.
+        I expected the shape to look like {thing}.
     validations:
       required: true
-
-  - type: input
-    id: jar
-    attributes:
-      label: Jar and SHA-256
-      description: >-
-        The file name and SHA-256 of the ArchitectureCraft jar in your mods folder.
-        Windows: Get-FileHash <file> -Algorithm SHA256 in PowerShell.
-        Linux/macOS: sha256sum <file>.
-      placeholder: architecturecraft-renovated.3.108-0.5.jar, F672D4FA...
-    validations:
-      required: true
-
-  - type: dropdown
-    id: loader
-    attributes:
-      label: Loader
-      options:
-        - Cleanroom
-        - Forge 1.12.2
-        - Something else (explain in the log section)
-    validations:
-      required: true
-
-  - type: input
-    id: loader-version
-    attributes:
-      label: Loader version
-      description: The Cleanroom or Forge version, as printed at the top of the log.
-      placeholder: "Cleanroom 0.7.14-alpha, Forge 14.23.5.2860"
-    validations:
-      required: true
-
-  - type: input
-    id: java
-    attributes:
-      label: Java version
-      description: The version the game actually runs on, and where it comes from (Zulu 8, Temurin 17, ...).
-      placeholder: Zulu 25.0.1
-    validations:
-      required: true
-
-  - type: input
-    id: os
-    attributes:
-      label: Operating system
-      description: Including whether the disk is case sensitive, which matters for missing textures on Linux or macOS.
-      placeholder: Windows 11, or Ubuntu 24.04
-    validations:
-      required: true
-
   - type: textarea
-    id: log
+    id: reproduction
     attributes:
-      label: Log
+      label: Reproduction
       description: >-
-        A link to the full latest.log (Gist, Pastebin), or drag the file into this box.
-        If the game crashed, attach the crash report from crash-reports instead — it supersedes the log.
-        If you cannot share the whole log, paste the lines around the error, including the stack trace.
-      placeholder: https://gist.github.com/...
+        Steps to reproduce, in detail. Say whether it also happens with only this mod installed, and for
+        rendering issues whether a shader pack or resource pack was active.
+      placeholder: |
+        1. Place a {thing} block
+        2. Cut it with the sawbench into {shape}
+        3. Place the shape
+        4. It shows the missing model
     validations:
       required: true
-
-  - type: textarea
-    id: modlist
+  - type: input
+    id: version
     attributes:
-      label: What else is installed
+      label: Version
       description: >-
-        In latest.log, copy the line that starts "Client attempting to join with N mods" — it lists every
-        mod and version. If the issue is about rendering, also name your shader pack (and whether shaders
-        were on) and your resource packs.
-      placeholder: "[Client thread/INFO] [FML]: Client attempting to join with 195 mods : ..."
+        Mod version and jar file name, loader (Cleanroom or Forge) and its version, Java version, and your
+        operating system. The SHA-256 of the jar helps too.
+      placeholder: 3.108-0.5 (F672D4FA...), Cleanroom 0.7.14-alpha, Zulu 25, Windows 11
     validations:
       required: true
-
   - type: textarea
-    id: config
+    id: logs
     attributes:
-      label: Mod options, if the issue is visual
+      label: Relevant log output
       description: >-
-        Open the mod's config from Mod Options and say what "Overlay layer" and "Shader material ids" are
-        set to. "Did you enable that?" is the first question a rendering report raises.
-
-  - type: dropdown
-    id: isolated
-    attributes:
-      label: Does it also happen with only this mod installed?
-      description: A fresh profile with just this jar, or the closest you can get to it.
-      options:
-        - "Yes"
-        - "No"
-        - "Not tried"
+        Paste the relevant lines from latest.log, or link the whole file with a Gist or Pastebin. If the game
+        crashed, attach the crash report from crash-reports instead. Copy and paste, no backticks needed.
+      render: shell
     validations:
       required: true
-
-  - type: textarea
-    id: screenshots
-    attributes:
-      label: Screenshots
-      description: >-
-        Drag images into this box. For a rendering issue, one screenshot of the problem and one of a
-        working example next to it are worth more than a description.
