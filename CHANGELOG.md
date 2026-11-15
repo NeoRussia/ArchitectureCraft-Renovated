@@ -11,6 +11,19 @@
 - Shapes need the tool their material needs. A stone or obsidian shape no
   longer drops when broken by hand; it wants the same pickaxe its material
   would. Before this, every shape was treated as needing no tool at all.
+- Shapes draw the second, emissive layer their material has: the bloom on
+  active casings, lamps and sintering bricks, in the material's own layer and
+  at full brightness over the base. A texture that replaces the base instead of
+  glowing over it is drawn as the base and shaded normally. Switchable with
+  "Overlay layer".
+- Shapes report the block they were cut from to Demonica's shader provider, so
+  a pack's per-block rules (emissive, coloured light, material class) apply to
+  them; translucent materials are matched per state, so stained glass keeps its
+  colour. Switchable with "Shader material ids", inert without Demonica or
+  with shaders off.
+- The mod's config screen is registered. Both switches take effect without a
+  restart and are saved to `config/architecturecraft.cfg`; before this the
+  screen edited nothing and the file kept its defaults.
 - Redrawing a chunk that holds shapes costs a fraction of what it did. Light
   was sampled from the world once per vertex and the shape's own light value
   re-read for every sampled cell; both are now read once per shape, and
