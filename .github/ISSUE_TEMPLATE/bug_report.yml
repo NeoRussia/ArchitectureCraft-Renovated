@@ -48,8 +48,8 @@ body:
     attributes:
       label: Relevant log output
       description: >-
-        Paste the relevant lines from latest.log, or link the whole file with a Gist or Pastebin. If the game
-        crashed, attach the crash report from crash-reports instead. Copy and paste, no backticks needed.
+        Paste the relevant lines from latest.log, or upload the whole file to mclo.gs and link it. If the
+        game crashed, attach the crash report from crash-reports instead. Copy and paste, no backticks needed.
       render: shell
     validations:
       required: true
