@@ -67,6 +67,13 @@ retried.
 Only the third is missing from a general Iris port, and it is the whole reason
 this feature is Demonica-only in 0.5.
 
+The context also carries the shape's light level, which a pack reads as block
+emission. That is not redundant with the id: a glowing shape whose material is
+translucent has to report the material's glass id to keep its tint, so the id
+cannot also say "this cell is a light source". Eclipse handles exactly that
+case, in `shaders/lib/voxel_write.glsl`: the emission attribute is honoured when
+the id is unmapped **or** is one of its glass ids.
+
 ## What another Iris-based mod must expose
 
 Three things, by any names, with these semantics:
@@ -118,6 +125,8 @@ while a pack runs, so the pack's own lighting is not darkened twice.
   `stamp` logs once, "Shader material ids: could not set the block context,
   shapes keep their own id".
 - A material the pack does not map: `-1`, not stamped, the shape keeps its id.
+- Light level 0: the emission attribute is 0, so the pack sees no emitter. Only
+  shapes that already glow are affected by that byte.
 - `-Darchitecturecraft.shaderIds.mode=state`: skips the provider and stamps the
   material's `Block.getStateId` instead, for a pack that keys by state rather
   than by its block map.

@@ -4,6 +4,7 @@ import com.elytradev.architecture.client.proxy.ClientProxy;
 import com.elytradev.architecture.client.render.target.RenderTargetBaked;
 import com.elytradev.architecture.client.render.target.RenderTargetWorld;
 import com.elytradev.architecture.common.ArchitectureLog;
+import com.elytradev.architecture.common.block.BlockShape;
 import com.elytradev.architecture.common.tile.TileShape;
 import com.elytradev.architecture.compat.demonica.ShaderMaterialIds;
 import com.elytradev.architecture.common.helpers.Trans3;
@@ -105,11 +106,12 @@ public class CustomBlockDispatcher extends BlockRendererDispatcher {
         try {
             // A shader pack cannot see a shape's material from the block state,
             // so hand it the material's own id when the material is one the pack
-            // knows. Does nothing without Demonica, and nothing for materials it
-            // does not recognise.
+            // knows, plus the shape's light so a glowing translucent shape can
+            // still be read as an emitter. Does nothing without Demonica, and
+            // nothing for materials it does not recognise.
             TileShape tile = TileShape.get(world, pos);
             if (tile != null)
-                ShaderMaterialIds.stamp(tess, pos, tile.getBaseBlockState());
+                ShaderMaterialIds.stamp(tess, pos, tile.getBaseBlockState(), state.getValue(BlockShape.LIGHT));
 
             RenderTargetWorld target = new RenderTargetWorld(world, pos, tess, icon);
             BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();

@@ -85,8 +85,17 @@ public final class ShaderMaterialIds {
         translucent.clear();
     }
 
-    /** Sets the shader block id for the material about to be drawn. */
-    public static void stamp(BufferBuilder buffer, BlockPos pos, IBlockState material) {
+    /**
+     * Sets the shader block id for the material about to be drawn.
+     *
+     * <p>{@code lightLevel} is the shape's own light, written into the vertex
+     * attribute a pack reads as block emission. It cannot come from the id: a
+     * glowing translucent shape has to keep the material's glass id for
+     * tinting, and a pack that only lights ids it maps would see no emitter at
+     * all. The attribute is the second route, and it is also the only one a
+     * pack honours for a glass id.</p>
+     */
+    public static void stamp(BufferBuilder buffer, BlockPos pos, IBlockState material, int lightLevel) {
         if (!enabled() || material == null || !isActive())
             return;
         Chosen choice = choiceFor(material);
@@ -94,7 +103,7 @@ public final class ShaderMaterialIds {
             return;
         try {
             Object context = newContext.newInstance(
-                    pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, choice.id, (short) 0, (byte) 0);
+                    pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, choice.id, (short) 0, (byte) lightLevel);
             withBlockStateId.invoke(context, choice.id);
             setActiveContext.invoke(buffer, context);
         } catch (ReflectiveOperationException | RuntimeException e) {
