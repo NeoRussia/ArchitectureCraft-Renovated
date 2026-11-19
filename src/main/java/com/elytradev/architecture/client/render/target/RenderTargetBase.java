@@ -27,6 +27,7 @@ package com.elytradev.architecture.client.render.target;
 import com.elytradev.architecture.client.render.texture.ITexture;
 import com.elytradev.architecture.client.render.texture.TextureBase;
 import com.elytradev.architecture.common.helpers.Vector3;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
@@ -81,6 +82,15 @@ public abstract class RenderTargetBase {
                 throw new IllegalArgumentException("Setting null texture");
             this.texture = texture;
         }
+    }
+
+    /**
+     * Records which block the faces about to be drawn come from. A window's
+     * glazing is not the frame's material, and the shader pipeline can only
+     * see the difference if the renderer says so; targets that do not talk to
+     * a shader pack ignore it.
+     */
+    public void setMaterial(IBlockState state) {
     }
 
     public void setColor(int color) {

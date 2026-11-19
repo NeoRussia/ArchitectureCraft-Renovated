@@ -43,6 +43,7 @@ import com.elytradev.architecture.common.tile.TileShape;
 import com.elytradev.architecture.common.utils.MiscUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -651,8 +652,10 @@ public abstract class ShapeKind {
 
         @Override
         public boolean isValidSecondaryMaterial(IBlockState state) {
-            Block block = state.getBlock();
-            return block == Blocks.GLASS_PANE || block == Blocks.STAINED_GLASS_PANE;
+            // Any glass that is not a full cube counts as a pane, so modded
+            // panes work whether or not they extend BlockPane: vanilla and
+            // stained panes qualify, glass blocks and our own shapes do not.
+            return state.getMaterial() == Material.GLASS && !state.isFullCube();
         }
 
         @Override

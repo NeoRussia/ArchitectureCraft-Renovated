@@ -29,6 +29,7 @@ import com.elytradev.architecture.client.render.shape.ShapeProbe;
 import com.elytradev.architecture.common.ArchitectureLog;
 import com.elytradev.architecture.common.helpers.Vector3;
 import com.elytradev.architecture.common.tile.TileShape;
+import com.elytradev.architecture.compat.demonica.ShaderMaterialIds;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -79,6 +80,8 @@ public class RenderTargetWorld extends RenderTargetBase {
     private Face currentFace;
     /** True while a material's second, emissive layer is being drawn. */
     private boolean overlayPass;
+    /** Material the renderer says the faces it is drawing now come from. */
+    private IBlockState renderMaterial;
     /** Index of the first overlay face, or -1 when none were drawn. */
     private int overlayStart = -1;
 
@@ -107,6 +110,8 @@ public class RenderTargetWorld extends RenderTargetBase {
 
         EnumFacing dir;
         int count;
+        /** Material the face was drawn from, or null when the shape did not say. */
+        IBlockState material;
         double[] xs = new double[4], ys = new double[4], zs = new double[4];
         double[] us = new double[4], vs = new double[4];
         float[] rs = new float[4], gs = new float[4], bs = new float[4], as = new float[4];
@@ -173,6 +178,16 @@ public class RenderTargetWorld extends RenderTargetBase {
 
     // ---------------------------- IRenderTarget ----------------------------
 
+    /**
+     * Says which block the faces drawn from now on come from. Windows call it
+     * before the frame models and again before the glazing, so a pane's faces
+     * reach the shader pack with the pane's id and not the frame's.
+     */
+    @Override
+    public void setMaterial(IBlockState state) {
+        this.renderMaterial = state;
+    }
+
     @Override
     public void setNormal(Vector3 n) {
 //      ArchitectureLog.info("BaseWorldRenderer.setNormal: %s (%.3f, %.3f, %.3f)\n",
@@ -193,6 +208,7 @@ public class RenderTargetWorld extends RenderTargetBase {
     @Override
     public void endFace() {
         if (this.currentFace != null) {
+            this.currentFace.material = this.renderMaterial;
             this.faces.add(this.currentFace);
             this.currentFace = null;
         }
@@ -439,6 +455,11 @@ public class RenderTargetWorld extends RenderTargetBase {
     }
 
     protected void emit(Face f) {
+        // Each face reports the material it was drawn from. A window's glazing
+        // and its frame share one block, so the shape's own id is not enough;
+        // the context has to change between the frame faces and the glass ones.
+        if (f.material != null)
+            ShaderMaterialIds.stamp(this.getWorldRenderer(), this.blockPos, f.material, this.lightValue);
         BufferBuilder out = this.getWorldRenderer();
         for (int i = 0; i < f.count; i++) {
             out.pos(f.xs[i], f.ys[i], f.zs[i]);

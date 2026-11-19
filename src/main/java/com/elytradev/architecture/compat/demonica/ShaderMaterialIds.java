@@ -128,14 +128,18 @@ public final class ShaderMaterialIds {
     private static Chosen choiceFor(IBlockState material) {
         Block block = material.getBlock();
 
-        // Translucent materials: glass, stained glass, and anything else drawn in
-        // the translucent layer. Their colour lives in the metadata, hence the
-        // per-state cache below.
+        // See-through materials: glass, stained glass, panes, and anything else
+        // drawn outside the solid layer. Their colour and their variant live in
+        // the metadata, hence the per-state cache below. Cutout counts: modded
+        // panes are alpha-tested, and a pane left unstamped makes the whole
+        // window solid to the light grid.
         // A shape's quads are baked from its material, but the chunk builder only
         // knows the shape block. Handing it the material state's id is what lets the
         // pack's floodfill see glass where a glass shape is drawn, and therefore
         // tint light that passes through it instead of stopping at it.
-        if (block.getRenderLayer() == BlockRenderLayer.TRANSLUCENT) {
+        BlockRenderLayer layer = block.getRenderLayer();
+        if (layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT
+                || layer == BlockRenderLayer.CUTOUT_MIPPED) {
             int stateId = Block.getStateId(material);
             Chosen cachedTranslucent = translucent.get(stateId);
             if (cachedTranslucent != null)

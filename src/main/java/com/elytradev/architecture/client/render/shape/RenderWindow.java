@@ -32,6 +32,7 @@ import com.elytradev.architecture.common.ArchitectureLog;
 import com.elytradev.architecture.common.helpers.Trans3;
 import com.elytradev.architecture.common.shape.ShapeKind;
 import com.elytradev.architecture.common.tile.TileShape;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -122,13 +123,18 @@ public class RenderWindow extends RenderShape {
 
     protected void renderWindow(WindowModels models) {
         boolean[][] frame = this.getFrameFlags();
-        if (this.renderBase)
+        IBlockState base = this.te.getBaseBlockState();
+        IBlockState glazing = this.te.getSecondaryBlockState();
+        if (this.renderBase) {
+            this.target.setMaterial(base);
             this.renderModel(this.t, models.centre);
+        }
         for (int i = 0; i <= 3; i++) {
             int j = (i - 1) & 3;
             int k = (i + 1) & 3;
             Trans3 ts = this.t.t(this.kind.frameTrans[i]);
             if (this.renderBase) {
+                this.target.setMaterial(base);
                 if (frame[i][1])
                     this.renderModel(ts, models.side[i]);
                 else if (models.centreEnd != null)
@@ -138,12 +144,18 @@ public class RenderWindow extends RenderShape {
                 if (frame[i][1] && !frame[k][1] || frame[i][2] && frame[k][0])
                     this.renderModel(ts, models.end1[i]);
             }
-            if (this.renderSecondary && !frame[i][1] && !frame[i][3])
+            if (this.renderSecondary && !frame[i][1] && !frame[i][3]) {
+                this.target.setMaterial(glazing);
                 this.renderModel(ts, models.glassEdge[i]);
+            }
         }
         if (this.renderSecondary) {
+            this.target.setMaterial(glazing);
             this.renderModel(this.t, models.glass);
         }
+        // Leave the base material for anything drawn after the window, so the
+        // emissive overlay pass does not inherit the pane's id.
+        this.target.setMaterial(base);
     }
 
     protected void renderModel(Trans3 t, IArchitectureModel model) {
