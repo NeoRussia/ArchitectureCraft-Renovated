@@ -58,9 +58,9 @@ light opacity follows how much of the block a shape fills, shader packs no
 longer double-light custom geometry, placement previews are stable, and shapes
 sound like the material they were cut from. Mobs path around fences and walls.
 
-**Requirements.** Minecraft 1.12.2, Forge 14.23.4.2747 or newer (built against
-14.23.5.2860), Java 8. Cleanroom 0.7.x works too. No dependencies: drop the jar
-into `mods/`.
+**Requirements.** Minecraft 1.12.2, Forge 14.23.4.2747, the version it is built
+against; the 14.23.5 line works too. Java 8, and Cleanroom 0.7.x. No required
+dependencies: drop the jar into `mods/`.
 
 **Credits and licence.** MIT. Original ArchitectureCraft by Greg Ewing
 (gcewing); 1.12 port by darkevilmac, unascribed and the TridentMC contributors;
