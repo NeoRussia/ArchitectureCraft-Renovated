@@ -364,7 +364,16 @@ public class BlockShape extends BlockArchitecture<TileShape> {
         TileShape te = this.getTileEntity(world, pos);
         if (te != null) {
             Trans3 t = te.localToGlobalTransformation(Vector3.blockCenter);
-            return te.getShape().kind.getBounds(te, world, pos, state, entity, t);
+            AxisAlignedBB box = te.getShape().kind.getBounds(te, world, pos, state, entity, t);
+            // A mesh whose bounds poke outside its own block - a converted model
+            // a 256th over the top, a capital, a roof overhang - breaks picking:
+            // the ray is already inside that box by the time this block's cell is
+            // tested, so the near face is never reported and the click lands on
+            // whatever is behind it. The fence had the same failure from its 1.5
+            // collision box. Clip the selection box to the block.
+            if (box != null && box != Block.NULL_AABB)
+                return box.intersect(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+            return box;
         }
         return null; // Causes getBoundingBox to fall back on super implementation
     }

@@ -13,6 +13,15 @@
   of its own, so the model now answers with a plain stone sprite. Distant shapes
   read as solid stone; the material cannot be shown at that distance because it
   lives in the tile entity.
+- The sawbench accepts any glass-like material again. It judged materials by
+  name and by whether the block reports itself as a full cube, and glass is
+  deliberately not one, so Xtones' Glaxx and other modded glass were refused.
+  The material decides now, panes excluded; vanilla glass is unchanged.
+- Shapes whose mesh overhangs their block can be picked again. The selection box
+  came from the mesh bounds, and a model a 256th over the block top put the ray
+  inside that box before the block's own cell was tested, so the near face was
+  never reported and clicks landed behind it. The fence failure again, from a
+  different box; the selection box is now clipped to the block.
 
 ## 3.108-0.5
 

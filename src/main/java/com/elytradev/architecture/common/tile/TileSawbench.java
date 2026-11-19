@@ -29,8 +29,10 @@ import com.elytradev.architecture.common.shape.ShapePage;
 import com.elytradev.architecture.common.ArchitectureMod;
 import com.elytradev.architecture.common.block.BlockSawbench;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
@@ -276,11 +278,15 @@ public class TileSawbench extends TileArchitectureInventory {
     }
 
     protected boolean isAcceptableMaterial(Block block) {
-        String name = Block.REGISTRY.getNameForObject(block).toString();
-        if (block == Blocks.GLASS || block == Blocks.STAINED_GLASS || block instanceof BlockSlab ||
-                name.startsWith("chisel:glass"))
+        IBlockState state = block.getDefaultState();
+        // Glass is a full block that does not report itself as one, so ask the
+        // material rather than the shape. This covers vanilla glass, stained
+        // glass, Xtones' glass tones and any modded glass built on the material.
+        // Panes stay out: there is no cube to cut shapes from.
+        if (block instanceof BlockSlab
+                || (state.getMaterial() == Material.GLASS && !(block instanceof BlockPane)))
             return true;
-        return block.getDefaultState().isFullCube() && !block.hasTileEntity();
+        return state.isFullCube() && !block.hasTileEntity();
     }
 
     public int materialMultiple() {
