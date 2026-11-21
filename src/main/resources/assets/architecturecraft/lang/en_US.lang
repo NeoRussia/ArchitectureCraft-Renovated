@@ -6,8 +6,8 @@ item.architecturecraft.chisel.name=Architect's Chisel
 item.architecturecraft.hammer.name=Architect's Hammer
 item.architecturecraft.cladding.name=Cladding
 item.architecturecraft.hash_brown.name=Hash Brown
-item.architecturecraft.paintbrush.name=Paintbrush
 item.architecturecraft.hash_brown.desc=Still warm
+item.architecturecraft.paintbrush.name=Architect's Paintbrush
 itemGroup.architecture.tool=Architecture Craft Tools
 itemGroup.architecture.shape=Architecture Craft Shapes
 
@@ -32,6 +32,7 @@ architecturecraft.shape.pole=Round Pole
 architecturecraft.shape.bevelled_outer_corner=Bevelled Outer Corner
 architecturecraft.shape.bevelled_inner_corner=Bevelled Inner Corner
 architecturecraft.shape.pillar_base=Round Pillar Base
+architecturecraft.shape.corner_pillar=Corner Pillar
 architecturecraft.shape.doric_capital=Doric Capital
 architecturecraft.shape.ionic_capital=Ionic Capital
 architecturecraft.shape.corinthian_capital=Corinthian Capital

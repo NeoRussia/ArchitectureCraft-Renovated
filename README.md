@@ -50,7 +50,7 @@ appears or disappears. A straight north-south or east-west run uses a slim
 core; isolated walls, corners, T junctions and crossings use the full post.
 The 16 horizontal connection masks therefore need no separate shape IDs, and
 the `disabledConnections` bits of `TileShape` still apply for chisel control.
-One material block makes two walls. The wall has no rotation (hammer use does
+Three material blocks make four walls. The wall has no rotation (hammer use does
 nothing) and does not accept cladding.
 
 ### Fence
@@ -60,7 +60,7 @@ towards every side that connects to another fence or to a full cube. It uses
 the same connection rules as the wall (including `disabledConnections`), has
 no rotation and no cladding. Collision is 1.5 blocks high, as in vanilla, so
 the fence cannot be jumped over from flat ground; the selection box stays the
-post. One material block makes four fences.
+post. Three material blocks make four fences.
 
 ### Siding
 

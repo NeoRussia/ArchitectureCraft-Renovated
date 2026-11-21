@@ -66,6 +66,7 @@ public enum EnumShape {
     CYLINDER_LARGE_QUARTER(13, "architecturecraft.shape.cylinder_large_quarter", ShapeKind.Model("cylinder_quarter_r16h16"), UNILATERAL, 1, 1, 0xff),
     ANTICYLINDER_LARGE_QUARTER(14, "architecturecraft.shape.anticylinder_large_quarter", ShapeKind.Model("round_inner_corner"), UNILATERAL, 1, 2, 0xdd),
     PILLAR(15, "architecturecraft.shape.pillar", ShapeKind.Model("cylinder_r6h16"), QUADRILATERAL, 1, 1, 0x106),
+    CORNER_PILLAR(150, "architecturecraft.shape.corner_pillar", new CornerPillar(), UNILATERAL, 1, 4, 0x11),
     POST(16, "architecturecraft.shape.post", ShapeKind.Model("cylinder_r4h16"), QUADRILATERAL, 1, 4, 0x104),
     POLE(17, "architecturecraft.shape.pole", ShapeKind.Model("cylinder_r2h16"), QUADRILATERAL, 1, 16, 0x102),
 
@@ -179,8 +180,8 @@ public enum EnumShape {
     DOUBLE_ROOF_TILE(116, "architecturecraft.shape.double_roof_tile", new DoubleRoofTile(), BILATERAL, 1, 2, 0xff),
 
     // Clean-room wall inspired by Industrial Renewal's wall_concrete.
-    WALL(117, "architecturecraft.shape.wall", new Wall(), QUADRILATERAL, 1, 2, 0x0),
-    FENCE(118, "architecturecraft.shape.fence", new Fence(), QUADRILATERAL, 1, 4, 0x0),
+    WALL(117, "architecturecraft.shape.wall", new Wall(), QUADRILATERAL, 3, 4, 0x0),
+    FENCE(118, "architecturecraft.shape.fence", new Fence(), QUADRILATERAL, 3, 4, 0x0),
 
     // Siding: the roofing shapes mounted upright on walls. Same geometry and
     // profiles, but placement always stands them on their side.
