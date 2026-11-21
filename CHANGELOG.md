@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.108-0.7
+
+- Added shape ID 150, Corner Pillar: a quarter column that follows the face it is
+  placed against, upright on a floor or ceiling and along the wall's normal on a
+  wall. Shift lays it on the picked face, along the edge clockwise from the aimed
+  corner. One material block makes four, and a piece placed beside another takes
+  its direction and paintbrush turn.
+- Window glazing accepts any glass that is not a full cube, so modded panes and
+  Chisel's variants work. Each face now reports its own material to a shader
+  pack, so glazing no longer reads as the frame; cutout glass counts as
+  translucent for the id lookup.
+- Walls and fences cost three material blocks to make four, matching the stairs;
+  they were one block for two walls and one block for four fences.
+- The paintbrush is now the Architect's Paintbrush, and it has a Russian name for
+  the first time. `ru_RU` is complete: the four missing pages and every missing
+  shape name.
+
 ## 3.108-0.6
 
 - A glowing translucent shape emits its light again. The shape's own light was
