@@ -56,6 +56,12 @@ bloom state the provider maps, since a pack usually maps only a few of them;
 anything the provider reports as `<= 0` is cached as "no overlay" and never
 retried.
 
+A face can carry its own id as well as its block. Window glazing is a different
+material from its frame, so the quads that draw the glazing report the glazing
+and the rest of the shape reports the frame; the id is stamped as each face is
+emitted, because the target writes its quads in `end()`. Cutout glass follows
+the same rule as translucent, so only opaque materials are cached per block.
+
 ## The three questions a shader mod has to answer
 
 | Question | Who answers it today |

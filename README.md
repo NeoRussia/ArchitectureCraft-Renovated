@@ -12,8 +12,8 @@ This is not an official TridentMC release.
 
 ## Current additions
 
-The shape IDs `94-116` are the same as GTNH's fork, so existing IDs `0-93`
-are untouched; `117` is Renovated-specific:
+The shape IDs `94-116` are the same as GTNH's fork, so existing IDs `0-93` are
+untouched. Every ID from `117` up is this fork's own:
 
 | IDs | Shapes |
 |---|---|
@@ -31,16 +31,19 @@ are untouched; `117` is Renovated-specific:
 | 130 | Double Siding |
 | 131 | GregTech |
 | 132-149 | Corner wedges: A/B/C families in 2, 3 and 4 bands, plus glow duplicates |
+| 150 | Corner Pillar |
 
 The shapes use the existing `architecturecraft:shape` block and `TileShape`.
 They add no new block, tile entity or per-shape blockstate. The glow
 shapes use the existing `LIGHT` blockstate at level 15; GTNH's separate
 `shapeSE` block is not used.
 
-The sawbench gets a new **Glow** page; the 23 GTNH shapes, the wall, the fence
-and the GregTech plaque are on the existing **Other** page. The icon atlas is
-split at ID 110, following GTNH:
-IDs 0-109 use `shapemenu_items.png`, IDs 110+ use `shapemenu_items_1.png`.
+The sawbench has eleven pages: Roofing, Slopes, Rounded, Classical, Window,
+Arches, Railings, Glow, Glow 2, Siding and Other. **Other** holds Cladding
+Sheet, Slab, the three stairs, Angled Roof Ridge, Double Roof Tile, Wall, Fence,
+Corner Pillar and the GregTech plaque. The icon atlas is split at ID 110,
+following GTNH: IDs 0-109 use `shapemenu_items.png`, IDs 110+ use
+`shapemenu_items_1.png`.
 
 ### Wall
 
@@ -61,6 +64,17 @@ the same connection rules as the wall (including `disabledConnections`), has
 no rotation and no cladding. Collision is 1.5 blocks high, as in vanilla, so
 the fence cannot be jumped over from flat ground; the selection box stays the
 post. Three material blocks make four fences.
+
+### Corner Pillar
+
+A quarter column: half a block by half a block wide and a block long. Its long
+axis follows the face it is placed against, so it stands upright on a floor or a
+ceiling and runs along the wall's normal, sticking out of a wall, with the corner
+taken from the aim. With shift it lies on the face that was picked, the long axis
+running along the edge clockwise from the corner you aim at, so the four corners
+of a face give its four edges. One material block makes four, and a piece placed
+beside another takes its direction and its paintbrush turn, so a run stays
+straight and stays decorated. It does not accept cladding.
 
 ### Siding
 
@@ -86,8 +100,11 @@ whole block reads as the base material.
 - Existing shape IDs `0-93` and existing worlds/structures are unchanged.
 - A shape made with the new IDs in a world loaded by an older build will fall
   back to `ROOF_TILE` (the mod's unknown-ID fallback), not crash.
-- The new **Glow** sawbench page is forward-compatible; an older build opening
-  a save whose selected page is 7 may hit the old page-array bounds check.
+- The sawbench stores its selected page and slot by index, and the page list has
+  grown; a save made with more pages than the build reading it has may name a
+  page that build does not know.
+- The shader work -- material ids for Demonica, per-face ids for window glazing
+  and the two config switches -- is described in [docs/shaders.md](docs/shaders.md).
 
 ## Build
 
