@@ -25,10 +25,8 @@
 package com.elytradev.architecture.common.tile;
 
 import com.elytradev.architecture.legacy.base.BaseContainer;
-import com.elytradev.architecture.common.ArchitectureLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
@@ -69,15 +67,6 @@ public class ContainerSawbench extends BaseContainer {
             return null;
     }
 
-    @Override
-    public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-        ItemStack cursorBefore = player.inventory.getItemStack().copy();
-        ItemStack out = super.slotClick(slotId, dragType, clickTypeIn, player);
-        ArchitectureLog.info("SAWDEBUG click slot={} drag={} type={} remote={} cursorBefore={} returned={} cursorAfter={} mat={} res={}",
-                slotId, dragType, clickTypeIn, player.world.isRemote, cursorBefore, out,
-                player.inventory.getItemStack(), this.getSlot(0).getStack(), this.getSlot(1).getStack());
-        return out;
-    }
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {

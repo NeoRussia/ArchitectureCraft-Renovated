@@ -160,16 +160,10 @@ public class TileSawbench extends TileArchitectureInventory {
 
     @Override
     public ItemStack decrStackSize(int slot, int amount) {
-        ArchitectureLog.info("SAWDEBUG decr enter slot={} amount={} remote={} mat={} res={} pending={}",
-                slot, amount, this.world != null && this.world.isRemote,
-                this.getStackInSlot(materialSlot), this.getStackInSlot(resultSlot), this.pendingMaterialUsage);
         if (slot == resultSlot)
             this.usePendingMaterial();
         ItemStack result = super.decrStackSize(slot, amount);
         this.updateResultSlot();
-        ArchitectureLog.info("SAWDEBUG decr exit returned={} mat={} res={} pending={} multiple={}",
-                result, this.getStackInSlot(materialSlot), this.getStackInSlot(resultSlot),
-                this.pendingMaterialUsage, this.materialMultiple());
         return result;
     }
 
@@ -265,9 +259,6 @@ public class TileSawbench extends TileArchitectureInventory {
         if (oldResult.isEmpty() || this.pendingMaterialUsage) {
             ItemStack resultStack = this.makeResultStack();
             if (!ItemStack.areItemStacksEqual(resultStack, oldResult)) {
-                ArchitectureLog.info("SAWDEBUG result {} -> {} remote={} mat={} pending={}",
-                        oldResult, resultStack, this.world != null && this.world.isRemote,
-                        this.getStackInSlot(materialSlot), this.pendingMaterialUsage);
                 this.inventory.setInventorySlotContents(resultSlot, resultStack);
             }
             this.pendingMaterialUsage = !resultStack.isEmpty();
