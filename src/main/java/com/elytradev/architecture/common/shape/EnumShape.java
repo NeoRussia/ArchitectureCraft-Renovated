@@ -64,7 +64,7 @@ public enum EnumShape {
     CYLINDER_HALF(11, "architecturecraft.shape.cylinder_half", ShapeKind.Model("cylinder_half_r8h16"), BILATERAL, 1, 1, 0xcc),
     CYLINDER_QUARTER(12, "architecturecraft.shape.cylinder_quarter", ShapeKind.Model("cylinder_quarter_r8h16"), UNILATERAL, 1, 1, 0x44),
     CYLINDER_LARGE_QUARTER(13, "architecturecraft.shape.cylinder_large_quarter", ShapeKind.Model("cylinder_quarter_r16h16"), UNILATERAL, 1, 1, 0xff),
-    ANTICYLINDER_LARGE_QUARTER(14, "architecturecraft.shape.anticylinder_large_quarter", ShapeKind.Model("round_inner_corner"), UNILATERAL, 1, 2, 0xdd),
+    ANTICYLINDER_LARGE_QUARTER(14, "architecturecraft.shape.anticylinder_large_quarter", ShapeKind.Model("round_inner_corner"), UNILATERAL, 1, 2, 0x0),
     PILLAR(15, "architecturecraft.shape.pillar", ShapeKind.Model("cylinder_r6h16"), QUADRILATERAL, 1, 1, 0x106),
     CORNER_PILLAR(150, "architecturecraft.shape.corner_pillar", new CornerPillar(), UNILATERAL, 1, 4, 0x11),
     POST(16, "architecturecraft.shape.post", ShapeKind.Model("cylinder_r4h16"), QUADRILATERAL, 1, 4, 0x104),

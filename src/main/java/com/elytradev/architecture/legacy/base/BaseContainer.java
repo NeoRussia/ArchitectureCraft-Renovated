@@ -128,7 +128,11 @@ public class BaseContainer extends Container {
     }
 
     protected boolean mergeItemStackIntoRange(ItemStack stack, SlotRange range) {
-        return this.mergeItemStack(stack, range.firstSlot, range.numSlots, range.reverseMerge);
+        // mergeItemStack takes an exclusive end index, not a slot count. Passing
+        // numSlots only worked while the range started at 0; for the player
+        // inventory (first slot 2) it skipped the last two slots.
+        return this.mergeItemStack(stack, range.firstSlot, range.firstSlot + range.numSlots,
+                range.reverseMerge);
     }
 
     // Return the range of slots into which the given stack should be moved by

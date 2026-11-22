@@ -25,8 +25,10 @@
 package com.elytradev.architecture.common.tile;
 
 import com.elytradev.architecture.legacy.base.BaseContainer;
+import com.elytradev.architecture.common.ArchitectureLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
@@ -65,6 +67,16 @@ public class ContainerSawbench extends BaseContainer {
             return new ContainerSawbench(player, (TileSawbench) te);
         else
             return null;
+    }
+
+    @Override
+    public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
+        ItemStack cursorBefore = player.inventory.getItemStack().copy();
+        ItemStack out = super.slotClick(slotId, dragType, clickTypeIn, player);
+        ArchitectureLog.info("SAWDEBUG click slot={} drag={} type={} remote={} cursorBefore={} returned={} cursorAfter={} mat={} res={}",
+                slotId, dragType, clickTypeIn, player.world.isRemote, cursorBefore, out,
+                player.inventory.getItemStack(), this.getSlot(0).getStack(), this.getSlot(1).getStack());
+        return out;
     }
 
     @Override
@@ -147,6 +159,19 @@ class SlotSawbench extends Slot {
 
     void updateFromServer(ItemStack stack) {
         this.te.inventory.setInventorySlotContents(this.index, stack);
+    }
+
+    /**
+     * Vanilla grows or shrinks a stack in place when material is right-clicked
+     * in or dragged, and that never calls setInventorySlotContents, so the tile
+     * used to keep serving a stale or empty result. The slot is the one place
+     * both paths meet, so the result is rebuilt here as well.
+     */
+    @Override
+    public void onSlotChanged() {
+        super.onSlotChanged();
+        if (this.index == TileSawbench.materialSlot)
+            this.te.updateResultSlot();
     }
 
 }

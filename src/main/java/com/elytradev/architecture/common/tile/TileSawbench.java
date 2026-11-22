@@ -26,6 +26,7 @@ package com.elytradev.architecture.common.tile;
 
 import com.elytradev.architecture.common.shape.EnumShape;
 import com.elytradev.architecture.common.shape.ShapePage;
+import com.elytradev.architecture.common.ArchitectureLog;
 import com.elytradev.architecture.common.ArchitectureMod;
 import com.elytradev.architecture.common.block.BlockSawbench;
 import net.minecraft.block.Block;
@@ -159,10 +160,16 @@ public class TileSawbench extends TileArchitectureInventory {
 
     @Override
     public ItemStack decrStackSize(int slot, int amount) {
+        ArchitectureLog.info("SAWDEBUG decr enter slot={} amount={} remote={} mat={} res={} pending={}",
+                slot, amount, this.world != null && this.world.isRemote,
+                this.getStackInSlot(materialSlot), this.getStackInSlot(resultSlot), this.pendingMaterialUsage);
         if (slot == resultSlot)
             this.usePendingMaterial();
         ItemStack result = super.decrStackSize(slot, amount);
         this.updateResultSlot();
+        ArchitectureLog.info("SAWDEBUG decr exit returned={} mat={} res={} pending={} multiple={}",
+                result, this.getStackInSlot(materialSlot), this.getStackInSlot(resultSlot),
+                this.pendingMaterialUsage, this.materialMultiple());
         return result;
     }
 
@@ -222,6 +229,13 @@ public class TileSawbench extends TileArchitectureInventory {
             }
         this.pendingMaterialUsage = tc.getBoolean("PMU");
         this.cooked = tc.getBoolean("Cooked");
+        // The result slot is derived, not stored: rebuild it from whatever
+        // material was restored. Without this a bench that held material when it
+        // was saved comes back with an empty result on the server, which opening
+        // the GUI never fixes, so the client shows a result the server refuses.
+        this.inventory.setInventorySlotContents(resultSlot, ItemStack.EMPTY);
+        this.pendingMaterialUsage = false;
+        this.updateResultSlot();
     }
 
     @Override
@@ -250,8 +264,12 @@ public class TileSawbench extends TileArchitectureInventory {
         ItemStack oldResult = this.getStackInSlot(resultSlot).copy();
         if (oldResult.isEmpty() || this.pendingMaterialUsage) {
             ItemStack resultStack = this.makeResultStack();
-            if (!ItemStack.areItemStacksEqual(resultStack, oldResult))
+            if (!ItemStack.areItemStacksEqual(resultStack, oldResult)) {
+                ArchitectureLog.info("SAWDEBUG result {} -> {} remote={} mat={} pending={}",
+                        oldResult, resultStack, this.world != null && this.world.isRemote,
+                        this.getStackInSlot(materialSlot), this.pendingMaterialUsage);
                 this.inventory.setInventorySlotContents(resultSlot, resultStack);
+            }
             this.pendingMaterialUsage = !resultStack.isEmpty();
         }
     }
