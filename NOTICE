@@ -17,11 +17,21 @@ The following material is derived from GTNewHorizons/ArchitectureCraft:
   src/main/resources/assets/architecturecraft/textures/gui/shapemenu_items.png and
   src/main/resources/assets/architecturecraft/textures/gui/shapemenu_items_1.png.
 
-GTNewHorizons/ArchitectureCraft is licensed under the MIT License:
+The following material is derived from ExtraCells2, at
+https://github.com/ExtraCells/ExtraCells2 (branch rv6-1.12):
+
+- the walrus model,
+  src/main/resources/assets/architecturecraft/models/shape/walrus.objson, from
+  assets/extracells/models/block/walrus.obj;
+- the walrus skin,
+  src/main/resources/assets/architecturecraft/textures/blocks/walrus2.png.
+
+Both projects are licensed under the MIT License:
 
   The MIT License (MIT)
 
   Copyright (c) 2016 gcewing
+  Copyright (c) 2014 M3gaFr3ak/Leonelf
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -30,22 +40,15 @@ GTNewHorizons/ArchitectureCraft is licensed under the MIT License:
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
 
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
 
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE.
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
 
 The rest of this fork remains under the MIT License in LICENSE.
-
-ExtraCells2
-===========
-
-The Walrus shape uses the walrus model and textures from
-https://github.com/ExtraCells/ExtraCells2 (branch rv6-1.12):
-models/block/walrus.obj and textures/blocks/walrus2.png.

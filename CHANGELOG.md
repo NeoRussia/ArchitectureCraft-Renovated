@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.108-0.8
+
+- Added shape ID 153, Walrus: a two-block decoration cut from one material
+  block, placed with its head towards the player and its body lying away. The
+  body takes the material, repeating once per block; the eye, whiskers and tusks
+  keep the source model's own artwork. One whole-cell collision box, and the
+  overhanging tail is neither clickable nor collidable. Model and skin are
+  ExtraCells2's, credited in `CREDITS.md` and `NOTICE`.
+- Added shape ID 152, Glow Paneling: the paneling shape with the Glow page's
+  level-15 light, placed right of the glowing slab.
+- Added shape ID 151, Round Inner Corner Ramp: the inner corner's quarter-round
+  as an incline, shaded smoothly along both arcs.
+- Model shapes now measure the volume they fill from their own mesh, so the
+  collision boxes no longer decide how much light a shape absorbs. Thin shapes
+  stopped casting a full block's shadow: the round inner corner is light tier 0,
+  and seven stepped boxes follow its lens, which also removed the dark band
+  where two pieces meet.
+- The sawbench rebuilds its result when the input slot changes, so growing a
+  stack in place updates the output, and when a bench is loaded from disk, so a
+  restored bench no longer refuses pickups while showing a result. The same
+  change closes a craft that took no material.
+- Shift-click reaches the last two inventory slots of the sawbench again.
+- A shape can carry a description line in its tooltip; the walrus has one.
+
 ## 3.108-0.7
 
 - Added shape ID 150, Corner Pillar: a quarter column that follows the face it is

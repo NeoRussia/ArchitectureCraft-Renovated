@@ -43,7 +43,7 @@ import static com.elytradev.architecture.common.ArchitectureMod.*;
 public class ArchitectureMod {
     public static final String MOD_NAME = "ArchitectureCraft: Renovated";
     public static final String MOD_ID = "architecturecraft";
-    public static final String MOD_VER = "3.108-0.8pre1";
+    public static final String MOD_VER = "3.108-0.8";
     public static final String RESOURCE_DOMAIN = "architecturecraft:";
 
     public static final ArchitectureContent CONTENT = new ArchitectureContent();

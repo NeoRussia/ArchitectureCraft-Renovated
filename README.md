@@ -32,6 +32,9 @@ untouched. Every ID from `117` up is this fork's own:
 | 131 | GregTech |
 | 132-149 | Corner wedges: A/B/C families in 2, 3 and 4 bands, plus glow duplicates |
 | 150 | Corner Pillar |
+| 151 | Round Inner Corner Ramp |
+| 152 | Glow Paneling |
+| 153 | Walrus |
 
 The shapes use the existing `architecturecraft:shape` block and `TileShape`.
 They add no new block, tile entity or per-shape blockstate. The glow
