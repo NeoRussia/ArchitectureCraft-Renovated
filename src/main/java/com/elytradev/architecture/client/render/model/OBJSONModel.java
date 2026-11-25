@@ -58,6 +58,26 @@ public class OBJSONModel implements IArchitectureModel {
         return model;
     }
 
+    /**
+     * Filled volume of the mesh as a fraction of the block, by the signed
+     * tetrahedron sum. Independent of {@link #boxes}, which are for collision:
+     * a shape may collide generously while filling very little.
+     */
+    public double meshVolume() {
+        double volume = 0.0;
+        for (Face face : this.faces) {
+            for (int[] tri : face.triangles) {
+                double[] a = face.vertices[tri[0]];
+                double[] b = face.vertices[tri[1]];
+                double[] c = face.vertices[tri[2]];
+                volume += (a[0] * (b[1] * c[2] - b[2] * c[1])
+                        - a[1] * (b[0] * c[2] - b[2] * c[0])
+                        + a[2] * (b[0] * c[1] - b[1] * c[0])) / 6.0;
+            }
+        }
+        return Math.min(1.0, Math.abs(volume));
+    }
+
     @Override
     public AxisAlignedBB getBounds() {
         return new AxisAlignedBB(this.bounds[0], this.bounds[1], this.bounds[2], this.bounds[3], this.bounds[4], this.bounds[5]);

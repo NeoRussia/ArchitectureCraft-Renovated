@@ -519,12 +519,10 @@ public abstract class ShapeKind {
          */
         public double getFilledVolume() {
             OBJSONModel model = (OBJSONModel) this.getModel();
-            if (model.boxes != null && model.boxes.length > 0) {
-                double volume = 0;
-                for (double[] b : model.boxes)
-                    volume += (b[3] - b[0]) * (b[4] - b[1]) * (b[5] - b[2]);
-                return Math.min(1.0, volume);
-            }
+            // From the mesh, so collision boxes stay free to be generous.
+        double meshVolume = model.meshVolume();
+        if (meshVolume > 1.0e-4)
+            return meshVolume;
             AxisAlignedBB bounds = model.getBounds();
             return Math.min(1.0, (bounds.maxX - bounds.minX)
                     * (bounds.maxY - bounds.minY) * (bounds.maxZ - bounds.minZ));

@@ -70,7 +70,7 @@ public class TileSawbench extends TileArchitectureInventory {
                     EnumShape.WEDGE_C_BASE, EnumShape.WEDGE_C_MIDDLE_1, EnumShape.WEDGE_C_MIDDLE_2,
                     EnumShape.WEDGE_C_TIP),
             new ShapePage("architecturecraft.shapepage.rounded",
-                    EnumShape.CYLINDER, EnumShape.CYLINDER_HALF, EnumShape.CYLINDER_QUARTER, EnumShape.CYLINDER_LARGE_QUARTER, EnumShape.ANTICYLINDER_LARGE_QUARTER,
+                    EnumShape.CYLINDER, EnumShape.CYLINDER_HALF, EnumShape.CYLINDER_QUARTER, EnumShape.CYLINDER_LARGE_QUARTER, EnumShape.ANTICYLINDER_LARGE_QUARTER, EnumShape.ROUND_OUTER_CORNER_TRIM,
                     EnumShape.PILLAR, EnumShape.POST, EnumShape.POLE, EnumShape.SPHERE_FULL, EnumShape.SPHERE_HALF,
                     EnumShape.SPHERE_QUARTER, EnumShape.SPHERE_EIGHTH, EnumShape.SPHERE_EIGHTH_LARGE, EnumShape.SPHERE_EIGHTH_LARGE_REV),
             new ShapePage("architecturecraft.shapepage.classical",

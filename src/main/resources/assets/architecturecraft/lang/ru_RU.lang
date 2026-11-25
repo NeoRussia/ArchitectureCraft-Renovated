@@ -26,6 +26,7 @@ architecturecraft.shape.cylinder_half=Половина цилиндра
 architecturecraft.shape.cylinder_quarter=Четверть цилиндра
 architecturecraft.shape.cylinder_large_quarter=Скруглённый внешний угол
 architecturecraft.shape.anticylinder_large_quarter=Скруглённый внутренний угол
+architecturecraft.shape.round_outer_corner_trim=Скат внутреннего угла
 architecturecraft.shape.pillar=Круглая колонна
 architecturecraft.shape.post=Круглый столб
 architecturecraft.shape.pole=Круглый шест
