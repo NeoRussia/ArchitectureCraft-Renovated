@@ -164,6 +164,12 @@ public class ClientProxy extends CommonProxy {
         // The hash brown is not a shape, so its texture is stitched directly
         // rather than through the block or item texture name lists.
         e.getMap().registerSprite(RenderHashBrown.TEXTURE);
+
+        // The sprite for the walrus' eye, whiskers and tusks. Only the square
+        // skin is stitched: the block atlas rejects a 32x16 texture as a
+        // "broken aspect ratio", so the 32x16 variant of the same skin is not
+        // shipped.
+        e.getMap().registerSprite(new ResourceLocation(ArchitectureMod.MOD_ID, "blocks/walrus2"));
     }
 
     @Override

@@ -63,3 +63,13 @@ GTNewHorizons/ArchitectureCraft is MIT, Copyright (c) 2016 gcewing. The full
 notice is in [NOTICE](NOTICE) and `META-INF/NOTICE`.
 
 This project is MIT; see [LICENSE](LICENSE).
+
+## ExtraCells2
+
+- **ExtraCells2 contributors** - the walrus model and its texture
+  (assets/extracells/models/block/walrus.obj and
+  textures/blocks/walrus2.png), from
+  https://github.com/ExtraCells/ExtraCells2 at branch rv6-1.12. Used as the
+  geometry of the Walrus shape, textured by the material it is cut from, with
+  the eye, whiskers and tusks keeping their own sprites. Check the project's
+  licence before redistributing the art.

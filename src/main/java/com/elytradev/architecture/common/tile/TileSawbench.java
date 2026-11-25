@@ -107,7 +107,7 @@ public class TileSawbench extends TileArchitectureInventory {
                     EnumShape.PANELING, EnumShape.DOUBLE_SIDING),
             new ShapePage("architecturecraft.shapepage.other",
                     EnumShape.CLADDING_SHEET, EnumShape.SLAB, EnumShape.STAIRS, EnumShape.STAIRS_OUTER_CORNER, EnumShape.STAIRS_INNER_CORNER,
-                    EnumShape.ANGLED_ROOF_RIDGE, EnumShape.DOUBLE_ROOF_TILE, EnumShape.WALL, EnumShape.FENCE, EnumShape.CORNER_PILLAR, EnumShape.GREG_TECH),
+                    EnumShape.ANGLED_ROOF_RIDGE, EnumShape.DOUBLE_ROOF_TILE, EnumShape.WALL, EnumShape.FENCE, EnumShape.CORNER_PILLAR, EnumShape.GREG_TECH, EnumShape.WALRUS),
     };
 
     public IInventory inventory = new InventoryBasic("Items", false, 2);

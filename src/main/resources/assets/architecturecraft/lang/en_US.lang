@@ -166,6 +166,8 @@ architecturecraft.shape.wedge_c_middle_2_se=Wedge C Middle 2 (Glow)
 architecturecraft.shape.wedge_c_tip=Wedge C Tip
 architecturecraft.shape.wedge_c_tip_se=Wedge C Tip (Glow)
 architecturecraft.shape.greg_tech=GregTech
+architecturecraft.shape.walrus.desc=GregTech is like a job
+architecturecraft.shape.walrus=Walrus
 
 tooltip.architecturecraft.basematerial=Base: %s
 tooltip.architecturecraft.secondarymaterial=Secondary: %s

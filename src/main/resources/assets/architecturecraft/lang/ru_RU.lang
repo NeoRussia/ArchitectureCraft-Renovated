@@ -165,6 +165,7 @@ architecturecraft.shape.wedge_c_middle_2_se=Клин C: середина 2 (св
 architecturecraft.shape.wedge_c_tip=Клин C: вершина
 architecturecraft.shape.wedge_c_tip_se=Клин C: вершина (свечение)
 architecturecraft.shape.greg_tech=GregTech
+architecturecraft.shape.walrus=Морж
 
 tooltip.architecturecraft.basematerial=Основной: %s
 tooltip.architecturecraft.secondarymaterial=Дополнительный: %s

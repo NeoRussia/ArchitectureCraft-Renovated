@@ -42,3 +42,10 @@ GTNewHorizons/ArchitectureCraft is licensed under the MIT License:
   SOFTWARE.
 
 The rest of this fork remains under the MIT License in LICENSE.
+
+ExtraCells2
+===========
+
+The Walrus shape uses the walrus model and textures from
+https://github.com/ExtraCells/ExtraCells2 (branch rv6-1.12):
+models/block/walrus.obj and textures/blocks/walrus2.png.

@@ -109,12 +109,25 @@ public class OBJSONModel implements IArchitectureModel {
 
     @Override
     public void render(Trans3 t, RenderTargetBase target, int baseColourMult, int secondaryColourMult, ITexture... textures) {
-        Vector3 p = null, n = null;
+        this.render(t, target, baseColourMult, secondaryColourMult, -1, textures);
+    }
+
+    /**
+     * Draws faces whose texture slot is at or above {@code fullBrightFrom}
+     * untinted, for a kind that keeps artwork of its own in extra slots. A
+     * negative value keeps the default rule, where every slot above 1 takes
+     * the secondary material's tint.
+     */
+    public void render(Trans3 t, RenderTargetBase target, int baseColourMult, int secondaryColourMult,
+                       int fullBrightFrom, ITexture... textures) {
+        Vector3 p, n;
         for (Face face : this.faces) {
-            ITexture tex = textures[face.texture];
+            ITexture tex = face.texture < textures.length ? textures[face.texture] : null;
             if (tex != null) {
                 target.setTexture(tex);
-                target.setColor(face.texture > 1 ? secondaryColourMult : baseColourMult);
+                boolean fullBright = fullBrightFrom >= 0 && face.texture >= fullBrightFrom;
+                target.setColor(fullBright ? 0xFFFFFF
+                        : face.texture > 1 ? secondaryColourMult : baseColourMult);
                 for (int[] tri : face.triangles) {
                     target.beginTriangle();
                     for (int i = 0; i < 3; i++) {

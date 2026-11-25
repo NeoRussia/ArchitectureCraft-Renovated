@@ -68,6 +68,7 @@ public enum EnumShape {
     PILLAR(15, "architecturecraft.shape.pillar", ShapeKind.Model("cylinder_r6h16"), QUADRILATERAL, 1, 1, 0x106),
     CORNER_PILLAR(150, "architecturecraft.shape.corner_pillar", new CornerPillar(), UNILATERAL, 1, 4, 0x11),
     ROUND_OUTER_CORNER_TRIM(151, "architecturecraft.shape.round_outer_corner_trim", ShapeKind.Model("round_outer_corner_trim"), UNILATERAL, 1, 1, 0x0),
+    WALRUS(153, "architecturecraft.shape.walrus", new WalrusKind(), UNILATERAL, 1, 1, 0x0),
     POST(16, "architecturecraft.shape.post", ShapeKind.Model("cylinder_r4h16"), QUADRILATERAL, 1, 4, 0x104),
     POLE(17, "architecturecraft.shape.pole", ShapeKind.Model("cylinder_r2h16"), QUADRILATERAL, 1, 16, 0x102),
 

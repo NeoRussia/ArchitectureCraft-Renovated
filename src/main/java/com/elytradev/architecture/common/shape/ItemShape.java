@@ -30,6 +30,7 @@ import com.elytradev.architecture.common.helpers.Vector3;
 import com.elytradev.architecture.common.tile.TileShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,6 +43,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -106,9 +108,14 @@ public class ItemShape extends ItemBlock {
         if (tag != null) {
             int id = tag.getInteger("Shape");
             EnumShape shape = EnumShape.forId(id);
-            if (shape != null)
+            if (shape != null) {
                 lines.set(0, shape.getLocalizedShapeName());
-            else
+                // A shape may carry its own description; only the ones with the
+                // key show a line, so nothing else gains a tooltip entry.
+                String descKey = shape.translationKey + ".desc";
+                if (I18n.hasKey(descKey))
+                    lines.add(TextFormatting.GRAY + I18n.format(descKey));
+            } else
                 lines.set(0, lines.get(0) + " (" + id + ")");
             Block baseBlock = Block.getBlockFromName(tag.getString("BaseName"));
             int baseMetadata = tag.getInteger("BaseData");
