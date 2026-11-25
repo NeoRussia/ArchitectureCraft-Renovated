@@ -144,6 +144,7 @@ architecturecraft.shape.slope_tile_c2_siding=Сайдинг C2
 architecturecraft.shape.slope_tile_c3_siding=Сайдинг C3
 architecturecraft.shape.slope_tile_c4_siding=Сайдинг C4
 architecturecraft.shape.paneling=Панель
+architecturecraft.shape.paneling_se=Панель (свечение)
 architecturecraft.shape.double_siding=Двойной сайдинг
 architecturecraft.shape.wedge_a_base=Клин A: основание
 architecturecraft.shape.wedge_a_base_se=Клин A: основание (свечение)

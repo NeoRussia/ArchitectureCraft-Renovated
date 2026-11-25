@@ -218,6 +218,7 @@ public enum EnumShape {
     WEDGE_C_MIDDLE_2_SE(148, "architecturecraft.shape.wedge_c_middle_2_se", new Wedge("wedge_c_middle_2"), BILATERAL, 1, 4, 0x0f, GLOW),
     WEDGE_C_TIP_SE(149, "architecturecraft.shape.wedge_c_tip_se", new Wedge("wedge_c_tip"), BILATERAL, 1, 4, 0x0f, GLOW),
     PANELING(129, "architecturecraft.shape.paneling", new Paneling(), QUADRILATERAL, 1, 4, 0x0),
+    PANELING_SE(152, "architecturecraft.shape.paneling_se", new Paneling(), QUADRILATERAL, 1, 4, 0x0, GLOW),
     DOUBLE_SIDING(130, "architecturecraft.shape.double_siding", new DoubleSiding(), QUADRILATERAL, 1, 1, 0xff),
     GREG_TECH(131, "architecturecraft.shape.greg_tech", new Logo(), QUADRILATERAL, 1, 1, 0x0),
     ;

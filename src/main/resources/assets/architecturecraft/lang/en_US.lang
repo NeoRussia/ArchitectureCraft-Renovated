@@ -145,6 +145,7 @@ architecturecraft.shape.slope_tile_c2_siding=Siding C2
 architecturecraft.shape.slope_tile_c3_siding=Siding C3
 architecturecraft.shape.slope_tile_c4_siding=Siding C4
 architecturecraft.shape.paneling=Paneling
+architecturecraft.shape.paneling_se=Paneling (Glow)
 architecturecraft.shape.double_siding=Double Siding
 architecturecraft.shape.wedge_a_base=Wedge A Base
 architecturecraft.shape.wedge_a_base_se=Wedge A Base (Glow)
