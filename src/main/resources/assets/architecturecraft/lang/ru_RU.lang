@@ -34,6 +34,7 @@ architecturecraft.shape.bevelled_outer_corner=Обрезанный внешни�
 architecturecraft.shape.bevelled_inner_corner=Обрезанный внутренний угол
 architecturecraft.shape.pillar_base=Основание круглой колонны
 architecturecraft.shape.corner_pillar=Угловая колонна
+architecturecraft.shape.cladding_corner_pillar=Облицованная угловая колонна
 architecturecraft.shape.doric_capital=Дорическая вершина колонны
 architecturecraft.shape.ionic_capital=Ионическая вершина колонны
 architecturecraft.shape.corinthian_capital=Коринфская вершина колонны

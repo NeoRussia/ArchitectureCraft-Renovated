@@ -34,6 +34,7 @@ architecturecraft.shape.bevelled_outer_corner=Bevelled Outer Corner
 architecturecraft.shape.bevelled_inner_corner=Bevelled Inner Corner
 architecturecraft.shape.pillar_base=Round Pillar Base
 architecturecraft.shape.corner_pillar=Corner Pillar
+architecturecraft.shape.cladding_corner_pillar=Cladding Corner Pillar
 architecturecraft.shape.doric_capital=Doric Capital
 architecturecraft.shape.ionic_capital=Ionic Capital
 architecturecraft.shape.corinthian_capital=Corinthian Capital
