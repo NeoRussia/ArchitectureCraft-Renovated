@@ -180,7 +180,7 @@ public enum EnumShape {
     SQUARE_SE(113, "architecturecraft.shape.square_se", ShapeKind.Model("square"), QUADRILATERAL, 1, 1, 0xff, GLOW),
     SLAB_SE(114, "architecturecraft.shape.slab_se", ShapeKind.Model("slab"), QUADRILATERAL, 1, 2, 0x0f, GLOW),
     ANGLED_ROOF_RIDGE(115, "architecturecraft.shape.angled_roof_ridge", ShapeKind.Model("angled_roof_ridge"), BILATERAL, 1, 4, 0x0f),
-    DOUBLE_ROOF_TILE(116, "architecturecraft.shape.double_roof_tile", new DoubleRoofTile(), BILATERAL, 1, 2, 0xff),
+    DOUBLE_ROOF_TILE(116, "architecturecraft.shape.double_roof_tile", new DoubleRoofTile(), BILATERAL, 1, 1, 0xff),
 
     // Clean-room wall inspired by Industrial Renewal's wall_concrete.
     WALL(117, "architecturecraft.shape.wall", new Wall(), QUADRILATERAL, 3, 4, 0x0),
