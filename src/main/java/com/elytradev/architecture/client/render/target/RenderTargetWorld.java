@@ -27,6 +27,7 @@ package com.elytradev.architecture.client.render.target;
 import com.elytradev.architecture.client.render.ShaderCompat;
 import com.elytradev.architecture.client.render.shape.ShapeProbe;
 import com.elytradev.architecture.common.ArchitectureLog;
+import com.elytradev.architecture.compat.pulsar.PulsarRgb;
 import com.elytradev.architecture.common.helpers.Vector3;
 import com.elytradev.architecture.common.tile.TileShape;
 import com.elytradev.architecture.compat.demonica.ShaderMaterialIds;
@@ -319,7 +320,7 @@ public class RenderTargetWorld extends RenderTargetBase {
         else
             brv = this.sampleLight(this.blockPos);
         float lvv = (float) lvSum;
-        this.setLight((this.shaderPackInUse ? 1.0f : this.shade) * lvv, brv);
+        this.setLight(this.faceBrightness() * lvv, brv);
     }
 
     /**
@@ -351,6 +352,17 @@ public class RenderTargetWorld extends RenderTargetBase {
         return this.world.getCombinedLight(pos, this.lightValue);
     }
 
+    /**
+     * Brightness carried in the vertex colour. A shader pack cannot supply the
+     * face shade - vanilla blocks keep it in their vertices (1.0 up, 0.8 and
+     * 0.6 on the sides) - so forcing white here made a shape's side faces
+     * lighter than the blocks beside it while its top matched. An emitting
+     * shape stays full-bright so the pack still blooms it.
+     */
+    private float faceBrightness() {
+        return this.shaderPackInUse && this.lightValue > 0 ? 1.0f : this.shade;
+    }
+
     protected void brLightVertex(Vector3 p) {
         Vector3 n = this.normal;
         BlockPos pos;
@@ -362,7 +374,7 @@ public class RenderTargetWorld extends RenderTargetBase {
         else
             pos = this.blockPos;
         int br = this.sampleLight(pos);
-        this.setLight(this.shaderPackInUse ? 1.0f : this.shade, br);
+        this.setLight(this.faceBrightness(), br);
     }
 
     /**
@@ -446,9 +458,22 @@ public class RenderTargetWorld extends RenderTargetBase {
                         this.blockPos, e.toString());
             }
         }
-        for (int i = 0; i < this.faces.size(); i++) {
-            if (hidden == null || !hidden[i])
-                this.emit(this.faces.get(i));
+        // Pulsar tints a block's vertices after the block renderer has drawn
+        // them; a shape never reaches that hook, so the same rewrite is done
+        // here for the vertices just written.
+        boolean rgb = !this.inPreview && PulsarRgb.available();
+        int rgbStart = rgb ? this.buff.getVertexCount() : 0;
+        int rgbToken = rgb ? PulsarRgb.suppress() : 0;
+        try {
+            for (int i = 0; i < this.faces.size(); i++) {
+                if (hidden == null || !hidden[i])
+                    this.emit(this.faces.get(i));
+            }
+        } finally {
+            if (rgb) {
+                PulsarRgb.tint(this.buff, rgbStart);
+                PulsarRgb.restore(rgbToken);
+            }
         }
         this.faces.clear();
         return this.renderingOccurred;

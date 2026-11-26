@@ -297,6 +297,14 @@ public class TileShape extends TileArchitecture {
         }
     }
 
+    @Override
+    public void markBlockChanged() {
+        super.markBlockChanged();
+        // A shape can change material without its block state changing, which
+        // Pulsar would not notice on its own.
+        com.elytradev.architecture.compat.pulsar.PulsarShapeLight.refresh(this.world, this.pos);
+    }
+
     public void setSecondaryMaterial(IBlockState state) {
         this.secondaryBlockState = state;
         this.markBlockChanged();

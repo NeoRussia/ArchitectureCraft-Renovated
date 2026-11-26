@@ -8,18 +8,21 @@ ext {
     // What the mod reports to Forge and in mcmod.info. Keep MOD_VER in
     // ArchitectureMod.java in step with it; the download name comes from
     // `releaseName` below.
-    version = '3.108-0.9.0'
+    version = '3.108-0.9.1pre1'
 
     // Name of the released jar, without the extension or the classifier.
     // Kept apart from `version`, which is what the mod reports to Forge and in
     // mcmod.info: renaming the download must not change what the mod calls
     // itself.
-    releaseName = 'architecturecraft-renovated.3.108-0.9.0'
+    releaseName = 'architecturecraft-renovated.3.108-0.9.1pre1'
 
     concreteVersion = '0.3.3-SNAPSHOT'
     concreteModules = ['all']
 
-    coremod = null
+    // Adds Pulsar's RGB light interfaces to the shape block at class load, only
+    // when Pulsar is present. The transformer uses ASM, which Forge already
+    // provides, so no compile dependency is added.
+    coremod = 'com.elytradev.architecture.core.PulsarShapeCoremod'
     miniVersion = null
 
     language = 'java'
