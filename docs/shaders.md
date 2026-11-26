@@ -32,7 +32,7 @@ The rest of this file is the first one.
 | `compat/demonica/ShaderMaterialIds.java` | the whole integration: reflective resolve, per-material id caches, the stamp |
 | `client/render/CustomBlockDispatcher.java` | the call site, in `customRenderBlockToWorld`, before the shape's quads are written |
 | `client/render/ShaderCompat.java` | "is a shader pack running", OptiFine and `IrisApi`, cached for two seconds |
-| `client/render/target/RenderTargetWorld.java` | `shaderPackInUse` forces vertex light to full brightness so a pack is not double-darkened |
+| `client/render/target/RenderTargetWorld.java` | `faceBrightness()` keeps the vanilla face shade under a pack, and full brightness only for an emitting shape |
 | `common/ArchitectureConfig.java` | the `Shader material ids` switch and its system property |
 | `client/ClientConfigEvents.java` | clears both caches when the switch changes |
 
@@ -119,9 +119,11 @@ vertex-level hook to disagree with it. So a shape cannot claim a different block
 without a change inside the shader mod itself. Demonica is the one 1.12 shader
 setup that has the hook, which is why it is the only target here.
 
-What does apply everywhere, OptiFine included, is
-`RenderTargetWorld.shaderPackInUse`: vertex light is forced to full brightness
-while a pack runs, so the pack's own lighting is not darkened twice.
+What does apply everywhere, OptiFine included, is the face shade. A pack cannot
+add it back, and vanilla blocks carry it in their own vertices (1.0 on top, 0.8
+and 0.6 on the sides), so `RenderTargetWorld.faceBrightness()` keeps it for
+shapes under a pack as well. An emitting shape (`LIGHT` above 0) is the
+exception: it stays full-bright so the pack still blooms it.
 
 ## Failure and switches
 

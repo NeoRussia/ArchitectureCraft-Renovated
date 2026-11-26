@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.108-0.9.1
+
+- Shape side faces keep the vanilla face shade under a shader pack. The pack got
+  white vertices on shapes while blocks kept 1.0 on top and 0.8/0.6 on the sides,
+  so a shape's sides read lighter than the block beside it; an emitting shape
+  stays full-bright, so its bloom survives.
+- Pulsar RGB is supported. Shape faces take Pulsar's per-position light like the
+  blocks around them, a shape emits its material's colour at its own light
+  level, light through a stained-glass shape is filtered like the glass, and a
+  shape held or dropped lights at its level.
+- The Pulsar support adds no dependency: a coremod adds its positional light
+  interfaces to the shape block at class load, only when Pulsar is installed,
+  using the ASM Forge already provides. Without Pulsar the class is untouched.
+
 ## 3.108-0.9.0
 
 - Added shape ID 154, Cladding Corner Pillar: a full block whose corner quarter

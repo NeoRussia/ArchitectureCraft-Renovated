@@ -109,6 +109,11 @@ whole block reads as the base material.
   page that build does not know.
 - The shader work -- material ids for Demonica, per-face ids for window glazing
   and the two config switches -- is described in [docs/shaders.md](docs/shaders.md).
+- [Pulsar](https://github.com/Sumire-Labs/Pulsar) RGB light: shape faces take its
+  per-position light like the blocks around them, a shape emits its material's
+  colour at its own light level, stained-glass shapes filter light like the
+  glass, and a held or dropped shape lights at its level. Optional and
+  dependency-free; described in [docs/pulsar.md](docs/pulsar.md).
 
 ## Build
 
