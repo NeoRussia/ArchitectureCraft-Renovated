@@ -109,22 +109,27 @@ public class BaseContainer extends Container {
     // mergeItemStack as appropriate.
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-        ItemStack result = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         ItemStack stack = slot.getStack();
         if (slot != null && slot.getHasStack()) {
             SlotRange destRange = this.transferSlotRange(index, stack);
             if (destRange != null) {
-                result = stack.copy();
+                ItemStack moved = stack.copy();
                 if (!this.mergeItemStackIntoRange(stack, destRange))
                     return ItemStack.EMPTY;
                 if (stack.getCount() == 0)
                     slot.putStack(ItemStack.EMPTY);
                 else
                     slot.onSlotChanged();
+                // Return what was moved, as ContainerWorkbench does.
+                // Container.slotClick repeats QUICK_MOVE while the source slot
+                // still holds an item-equal stack, and a refilling output (this
+                // bench, the crafting table) is exactly that case: the repeat is
+                // what turns one shift-click into a whole stack's worth.
+                return moved;
             }
         }
-        return result;
+        return ItemStack.EMPTY;
     }
 
     protected boolean mergeItemStackIntoRange(ItemStack stack, SlotRange range) {

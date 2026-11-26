@@ -46,16 +46,16 @@ public class ContainerSawbench extends BaseContainer {
     public static int outputSlotTop = 57;
 
     TileSawbench te;
-    SlotRange sawbenchSlotRange;
+    SlotRange inputSlotRange;
     Slot materialSlot, resultSlot;
 
     public ContainerSawbench(EntityPlayer player, TileSawbench te) {
         super(guWidth, guiHeight);
         this.te = te;
-        this.sawbenchSlotRange = new SlotRange();
+        this.inputSlotRange = new SlotRange();
         this.materialSlot = this.addSlotToContainer(new Slot(te, 0, inputSlotLeft, inputSlotTop));
+        this.inputSlotRange.end();
         this.resultSlot = this.addSlotToContainer(new SlotSawbenchResult(te, 1, outputSlotLeft, outputSlotTop));
-        this.sawbenchSlotRange.end();
         this.addPlayerSlots(player, 8, guiHeight - 81);
     }
 
@@ -76,7 +76,11 @@ public class ContainerSawbench extends BaseContainer {
     @Override
     protected SlotRange transferSlotRange(int srcSlotIndex, ItemStack stack) {
         if (this.playerSlotRange.contains(srcSlotIndex))
-            return this.sawbenchSlotRange;
+            // Only the material slot: Container.mergeItemStack ignores
+            // Slot.isItemValid when it tops up a matching stack, so a range
+            // that included the output would let a stack equal to the current
+            // result land in the output box.
+            return this.inputSlotRange;
         else
             return this.playerSlotRange;
     }
@@ -126,12 +130,14 @@ public class ContainerSawbench extends BaseContainer {
     }
 
     protected ItemStack transferStackInResultSlot(EntityPlayer player, int index) {
+        if (!this.getSlot(index).getHasStack())
+            return ItemStack.EMPTY;
         boolean materialWasPending = this.te.pendingMaterialUsage;
         ItemStack origMaterialStack = this.te.usePendingMaterial();
-        ItemStack result = super.transferStackInSlot(player, index);
+        ItemStack moved = super.transferStackInSlot(player, index);
         if (materialWasPending)
             this.te.returnUnusedMaterial(origMaterialStack);
-        return result;
+        return moved;
     }
 }
 
