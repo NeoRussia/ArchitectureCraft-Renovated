@@ -35,6 +35,7 @@ untouched. Every ID from `117` up is this fork's own:
 | 151 | Round Inner Corner Ramp |
 | 152 | Glow Paneling |
 | 153 | Walrus |
+| 154 | Cladding Corner Pillar |
 
 The shapes use the existing `architecturecraft:shape` block and `TileShape`.
 They add no new block, tile entity or per-shape blockstate. The glow
@@ -44,9 +45,9 @@ shapes use the existing `LIGHT` blockstate at level 15; GTNH's separate
 The sawbench has eleven pages: Roofing, Slopes, Rounded, Classical, Window,
 Arches, Railings, Glow, Glow 2, Siding and Other. **Other** holds Cladding
 Sheet, Slab, the three stairs, Angled Roof Ridge, Double Roof Tile, Wall, Fence,
-Corner Pillar and the GregTech plaque. The icon atlas is split at ID 110,
-following GTNH: IDs 0-109 use `shapemenu_items.png`, IDs 110+ use
-`shapemenu_items_1.png`.
+Corner Pillar, Cladding Corner Pillar, the GregTech plaque and the Walrus. The
+icon atlas is split at ID 110, following GTNH: IDs 0-109 use
+`shapemenu_items.png`, IDs 110+ use `shapemenu_items_1.png`.
 
 ### Wall
 

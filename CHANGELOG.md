@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.108-0.9.0
+
+- Added shape ID 154, Cladding Corner Pillar: a full block whose corner quarter
+  takes the cladding material, placed with the Corner Pillar's rules. Until a
+  cladding is applied the quarter is simply more of the block.
+- The sawbench converts a whole stack again on one shift-click. Its output
+  refills after each take, which is what makes vanilla repeat the transfer; the
+  container returned an empty stack and stopped that after one piece. Its output
+  slot is also only ever filled by the sawbench itself now, so a stack equal to
+  the result can no longer be pushed into it.
+- Double Roof Tile costs one block per piece, like the other full-block shapes.
+  It was one for two.
+- The in-game name of shape 151 reads "Round Inner Corner Ramp", all words
+  capitalised, as the release notes already had it.
+
 ## 3.108-0.8
 
 - Added shape ID 153, Walrus: a two-block decoration cut from one material
